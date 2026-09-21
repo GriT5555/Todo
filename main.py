@@ -1,21 +1,28 @@
-from tkinter import *
+import tkinter as tk
+from tkinter import ttk
 
-root = Tk()
-root.title("2Do")
+from app.ui.task_board import WINDOW_BG, TaskBoard
 
-myLabel = Label(root, text="Yo this is the label")
-myLabel2 = Label(root, text="grid1") #possible to .grid here since its OR lang
-myLabel3 = Label(root, text="grid2")
 
-def click1():
-    Label1 = Label(root, text="new task created")
-    Label1.grid(row=1, column=1)
+def main() -> None:
+    root = tk.Tk()
+    root.title("2Do")
+    root.geometry("640x720")
+    root.minsize(520, 560)
+    root.configure(bg=WINDOW_BG)
 
-myButton = Button(root, text="Click it", padx=10, pady=5, command=click1, fg="Red")
+    style = ttk.Style(root)
+    if "vista" in style.theme_names():
+        style.theme_use("vista")
 
-myLabel.grid(row=0, column=0)
-myLabel2.grid(row=2, column=2)
-myLabel3.grid(row=3, column=3)
-myButton.grid(row=0, column=1)
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure(0, weight=1)
 
-root.mainloop()
+    board = TaskBoard(root)
+    board.grid(row=0, column=0, sticky="nsew")
+
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    main()
